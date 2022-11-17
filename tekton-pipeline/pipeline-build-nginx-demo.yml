@@ -1,7 +1,8 @@
 apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
-  generateName: nginx-build-demo-
+  name: nginx-build-demo
+  namespace: tekton-nginx-demo
 params:
   - name: kaniko-image-url
     value: gcr.io/kaniko-project/executor:v1.9.1
