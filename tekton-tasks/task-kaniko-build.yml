@@ -32,7 +32,8 @@ spec:
       args: ["--dockerfile=$(workspaces.kaniko.path)/$(params.dockerfile-path)",
             "--context=dir://workspace",
             "--destination=$(params.docker-registry):$(params.image-tag)",
-            "--verbosity=trace"]
+            "--verbosity=trace",
+            "--build-arg=HTML_FILEPATH=$(workspaces.kaniko.path)/docker/nginx/index.html"]
       volumeMounts:
         - name: docker-config
           mountPath: /kaniko/.docker

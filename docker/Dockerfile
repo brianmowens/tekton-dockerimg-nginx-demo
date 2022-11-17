@@ -1,2 +1,3 @@
 FROM nginx:latest
-COPY nginx/index.html /usr/share/nginx/html/index.html
+ARG HTML_FILEPATH
+COPY $HTML_PATH /usr/share/nginx/html/index.html
