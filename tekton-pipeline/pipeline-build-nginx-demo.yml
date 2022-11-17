@@ -4,6 +4,34 @@ metadata:
   name: nginx-build-demo
   namespace: tekton-nginx-demo
 spec:
+  params:
+    - name: git-credential-secret-name
+      type: string
+      description: Name of the Kubernetes secret for use with Git authentication.
+    - name: git-url
+      type: string
+      description: Git url of the repository where the Dockerfile is stored.
+    - name: git-branch
+      type: string
+      default: main
+      description: Git branch to checkout.
+    - name: docker-registry
+      type: string
+      description: Address of destination Docker image repository.
+    - name: docker-registry-secret-name
+      type: string
+      description: Name of the secret with docker registry credentials.
+    - name: dockerfile-path
+      type: string
+      description: Path to the Dockerfile in your workspace.
+    - name: image-tag
+      type: string
+      default: latest
+      description: Tag assigned to the generated Docker image.
+    - name: kaniko-image-url
+      type: string
+      default: gcr.io/kaniko-project/executor:v1.9.1
+      description: Path to the Kaniko image.
   workspaces:
     - name: docker-workspace
   tasks:
