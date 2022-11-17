@@ -11,24 +11,12 @@ spec:
   tasks:
     - name: git-clone
       taskRef: task-git-clone
-      params: 
-        - name: git-url
-          value: github.com/brianmowens/tekton-dockerimg-nginx-demo
-        - name: git-credential-secret-name
-          value: github-pat
       workspaces:
         - name: kaniko
           workspace: docker-workspace
     - name: kaniko-build
       taskRef: task-build-dockerimg
       runAfter: git-clone
-      params:
-        - name: docker-registry
-          value: brianowens/nginx-hello-world
-        - name: docker-registry-secret-name
-          value: dockerhub-brianowens
-        - name: image-tag
-          value: latest
       workspaces:
         - name: kaniko
           workspace: docker-workspace
