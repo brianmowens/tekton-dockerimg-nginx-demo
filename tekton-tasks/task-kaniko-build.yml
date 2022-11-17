@@ -24,8 +24,7 @@ spec:
       description: Path to the Kaniko image.
   workspaces:
     - name: kaniko
-      description: |
-        Kaniko working folder
+      description: Kaniko working folder
   steps:
     - image: $(params.kaniko-image-url)
       name: kaniko-build
