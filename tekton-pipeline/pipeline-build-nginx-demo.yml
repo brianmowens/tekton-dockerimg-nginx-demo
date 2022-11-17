@@ -8,12 +8,14 @@ workspaces:
 spec:
   tasks:
     - name: git-clone
-      taskRef: task-git-clone
+      taskRef: 
+        name: task-git-clone
       workspaces:
         - name: kaniko
           workspace: docker-workspace
     - name: kaniko-build
-      taskRef: task-build-dockerimg
+      taskRef: 
+        name: task-build-dockerimg
       runAfter: git-clone
       workspaces:
         - name: kaniko
