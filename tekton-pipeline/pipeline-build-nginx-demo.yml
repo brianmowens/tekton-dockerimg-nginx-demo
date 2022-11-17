@@ -34,6 +34,13 @@ spec:
       description: Path to the Kaniko image.
   workspaces:
     - name: docker-workspace
+      volumeClaimTemplate:
+        spec:
+          accessModes:
+            - ReadWrite
+          resources:
+            requests:
+              storage: 1Gi
   tasks:
     - name: git-clone
       taskRef: 
