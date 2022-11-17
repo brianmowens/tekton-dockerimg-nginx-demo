@@ -59,7 +59,7 @@ spec:
         - name: image-tag
           value: $(params.image-tag)
         - name: kaniko-image-url
-          value: $(params.kaniko-url)
+          value: $(params.kaniko-image-url)
       taskRef: 
         name: task-kaniko-build
       runAfter: 
