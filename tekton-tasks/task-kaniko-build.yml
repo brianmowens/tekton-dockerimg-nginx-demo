@@ -33,7 +33,7 @@ spec:
       args: ["--dockerfile=$(workspaces.kaniko.path)/$(params.dockerfile-path)",
             "--context=dir://workspace",
             "--destination=$(params.docker-registry):$(params.image-tag)",
-            "--verbosity debug"]
+            "--verbosity=debug"]
       volumeMounts:
         - name: docker-config
           mountPath: /kaniko/.docker
