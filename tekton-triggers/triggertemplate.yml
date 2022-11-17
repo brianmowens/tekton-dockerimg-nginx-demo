@@ -1,0 +1,46 @@
+apiVersion: triggers.tekton.dev/v1alpha1
+kind: TriggerTemplate
+metadata:
+  name: github-commit-pipeline-template
+spec:
+  params:
+    - name: gitrevision
+      description: The git revision (SHA)
+      default: develop
+    - name: gitrepositoryurl
+      description: The git repository url ("https://github.com/foo/bar.git")
+  resourcetemplates:
+    - apiVersion: tekton.dev/v1beta1
+      kind: PipelineRun
+      metadata:
+        generateName: nginx-build-demo-pr-
+      spec:
+        pipelineRef:
+          name: nginx-build-demo
+        workspaces:
+          - name: docker-workspace
+            volumeClaimTemplate:
+              spec:
+                accessModes:
+                  - ReadWriteMany
+                volumeMode: Filesystem
+                resources:
+                  requests:
+                    storage: 50Mi
+        params:
+          - name: git-credential-secret-name
+            value: bmo-github
+          - name: git-url
+            value: $(tt.params.gitrepositoryurl)
+          - name: git-branch
+            value: $(tt.params.gitrevision)
+          - name: docker-registry
+            value: brianowens/nginx-hello-world
+          - name: docker-registry-secret-name
+            value: bmo-dockerhub
+          - name: dockerfile-path
+            value: docker/Dockerfile
+          - name: image-tag
+            value: 0.0.3
+          - name: kaniko-image-url
+            value: gcr.io/kaniko-project/executor:v1.9.1
