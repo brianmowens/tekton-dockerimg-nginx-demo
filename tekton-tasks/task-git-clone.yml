@@ -11,6 +11,10 @@ spec:
     - name: git-url
       type: string
       description: Git url of the repository where the Dockerfile is stored.
+    - name: git-branch
+      type: string
+      default: master
+      description: Git branch to checkout.
   workspaces:
     - name: kaniko
       description: |
@@ -25,6 +29,23 @@ spec:
               name: $(params.git-credential-secret-name)
               key: password
       script: |
-        git clone https://anything:$GITHUB_TOKEN@$(params.git-url) $(workspaces.kaniko.path)
+        GIT_URL=$(params.git-url)
+        GIT_BRANCH=$(params.git-branch)
+        
+        # Git auto-adds HTTPS in alpine/git, resulting in https://https:// if https:// 
+        # was specified in parameter value.
+        if [[ $GIT_URL == *"https://"* ]]; then
+          echo "Stripping https:// from provided git_url parameter."
+          GIT_URL=$(echo "$GIT_URL" | awk '{gsub("https://",""); print}')
+        fi
+
+        echo "Cloning repository into path: $(workspaces.kaniko.path)"
+        git clone $GIT_URL $(workspaces.kaniko.path)
+        
+        echo "Checking out branch: $GIT_BRANCH"
+        cd $(workspaces.kaniko.path)
+        git checkout $GIT_BRANCH
+
+        # Print directory output for logs
         ls -lah $(workspaces.kaniko.path)
       workingDir: $(workspaces.kaniko.path)
