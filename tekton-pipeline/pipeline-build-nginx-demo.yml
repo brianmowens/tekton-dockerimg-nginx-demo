@@ -38,10 +38,28 @@ spec:
     - name: git-clone
       taskRef: 
         name: task-git-clone
+      params:
+        - name: git-credential-secret-name
+          value: $(params.git-credential-secret-name)
+        - name: git-url
+          value: $(params.git-url)
+        - name: git-branch
+          value: $(params.git-branch)
       workspaces:
         - name: kaniko
           workspace: docker-workspace
     - name: kaniko-build
+      params:
+        - name: docker-registry
+          value: $(params.docker-registry)
+        - name: docker-registry-secret-name
+          value: $(params.docker-registry-secret-name)
+        - name: dockerfile-path
+          value: $(params.dockerfile-path)
+        - name: image-tag
+          value: $(params.image-tag)
+        - name: kaniko-image-url
+          value: $(params.kaniko-url)
       taskRef: 
         name: task-kaniko-build
       runAfter: 
