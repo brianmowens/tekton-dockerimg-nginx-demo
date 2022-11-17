@@ -3,9 +3,9 @@ kind: Pipeline
 metadata:
   name: nginx-build-demo
   namespace: tekton-nginx-demo
-workspaces:
-  - name: docker-workspace
 spec:
+  workspaces:
+    - name: docker-workspace
   tasks:
     - name: git-clone
       taskRef: 
