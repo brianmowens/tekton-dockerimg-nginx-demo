@@ -16,7 +16,8 @@ spec:
     - name: kaniko-build
       taskRef: 
         name: task-build-dockerimg
-      runAfter: git-clone
+      runAfter: 
+        - git-clone
       workspaces:
         - name: kaniko
           workspace: docker-workspace
