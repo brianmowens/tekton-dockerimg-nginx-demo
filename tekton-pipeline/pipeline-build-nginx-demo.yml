@@ -48,6 +48,12 @@ spec:
       workspaces:
         - name: kaniko
           workspace: docker-workspace
+    - name: busybox-debug
+      taskRef: 
+        name: task-busybox-debug
+      workspaces:
+        - name: kaniko
+          workspace: docker-workspace
     - name: kaniko-build
       params:
         - name: docker-registry

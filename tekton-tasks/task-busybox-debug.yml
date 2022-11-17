@@ -1,0 +1,20 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: task-busybox-debug
+  namespace: tekton-nginx-demo
+spec:
+  params: []
+  workspaces:
+    - name: kaniko
+      description: |
+        Kaniko working folder
+  steps:
+    - image: busybox
+      name: busybox-debug
+      env: []
+      script: |
+        echo "Dumping contents of workspace directories: "
+        # Print directory output for logs
+        ls -lah $(workspaces.kaniko.path)
+      workingDir: $(workspaces.kaniko.path)
