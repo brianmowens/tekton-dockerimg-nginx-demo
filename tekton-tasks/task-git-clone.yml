@@ -1,0 +1,30 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: task-git-clone
+  namespace: tekton-nginx-demo
+spec:
+  params:
+    - name: git-credential-secret-name
+      type: string
+      description: Name of the Kubernetes secret for use with Git authentication.
+    - name: git-url
+      type: string
+      description: Git url of the repository where the Dockerfile is stored.
+  workspaces:
+    - name: kaniko
+      description: |
+        Kaniko working folder
+  steps:
+    - image: alpine/git
+      name: git-clone
+      env:
+        - name: GITHUB_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: $(params.git-credential-secret-name)
+              key: password
+      script: |
+        git clone https://anything:$GITHUB_TOKEN@$(params.git-url) $(workspaces.kaniko.path)
+        ls -lah $(workspaces.kaniko.path)
+      workingDir: $(workspaces.kaniko.path)

@@ -1,0 +1,44 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: task-kaniko-build
+  namespace: tekton-nginx-demo
+spec:
+  params:
+    - name: docker-registry
+      type: string
+      description: Address of destination Docker image repository.
+    - name: docker-registry-secret-name
+      type: string
+      description: Name of the secret with docker registry credentials.
+    - name: image-tag
+      type: string
+      default: latest
+      description: Tag assigned to the generated Docker image.
+    - name: kaniko-image-url
+      type: string
+      default: gcr.io/kaniko-project/executor:v1.9.1
+      description: Path to the Kaniko image.
+  workspaces:
+    - name: kaniko
+      description: |
+        Kaniko working folder
+  steps:
+    - image: $(params.kaniko-image-url)
+      name: kaniko-build
+      resources: {}
+      args: ["--dockerfile=$(workspaces.kaniko.path)/Dockerfile",
+            "--context=dir://workspace",
+            "--destination=$(params.docker-registry):$(params.image-tag)"]
+      volumeMounts:
+        - name: docker-config
+          mountPath: /kaniko/.docker
+  volumes:
+    - name: docker-config
+      projected:
+        sources:
+        - secret:
+            name: $(params.docker-registry-secret-name)
+            items:
+              - key: .dockerconfigjson
+                path: config.json
