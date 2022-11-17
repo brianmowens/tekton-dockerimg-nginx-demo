@@ -3,9 +3,6 @@ kind: Pipeline
 metadata:
   name: nginx-build-demo
   namespace: tekton-nginx-demo
-params:
-  - name: kaniko-image-url
-    value: gcr.io/kaniko-project/executor:v1.9.1
 workspaces:
   - name: docker-workspace
 spec:
