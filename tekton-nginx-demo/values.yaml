@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: brianowens/nginx-hello-world
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: "0.0.1"
 
