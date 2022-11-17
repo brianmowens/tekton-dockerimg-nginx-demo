@@ -11,6 +11,9 @@ spec:
     - name: docker-registry-secret-name
       type: string
       description: Name of the secret with docker registry credentials.
+    - name: dockerfile-path
+      type: string
+      description: Path to the Dockerfile in your workspace.
     - name: image-tag
       type: string
       default: latest
@@ -27,7 +30,7 @@ spec:
     - image: $(params.kaniko-image-url)
       name: kaniko-build
       resources: {}
-      args: ["--dockerfile=$(workspaces.kaniko.path)/Dockerfile",
+      args: ["--dockerfile=$(workspaces.kaniko.path)/$(params.dockerfile-path)",
             "--context=dir://workspace",
             "--destination=$(params.docker-registry):$(params.image-tag)"]
       volumeMounts:
