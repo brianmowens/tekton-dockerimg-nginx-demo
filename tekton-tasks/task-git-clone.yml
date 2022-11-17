@@ -35,7 +35,7 @@ spec:
         echo "Cloning repository: $GIT_URL"
         git clone $GIT_URL $(workspaces.kaniko.path)
 
-        if [[ $GIT_BRANCH != "main "]]; then
+        if [[ $GIT_BRANCH != "main " ]]; then
           echo "Checking out branch: $GIT_BRANCH"
           cd $(workspaces.kaniko.path)
           git checkout $GIT_BRANCH
