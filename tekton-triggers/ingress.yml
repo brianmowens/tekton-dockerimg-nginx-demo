@@ -7,7 +7,7 @@ metadata:
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
 spec:
   rules:
-    - host: tektontrigger.microk8s01
+    - host: tektontrigger.example.com
       http:
         paths:
           - path: /hooks
