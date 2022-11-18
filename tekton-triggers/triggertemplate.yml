@@ -41,6 +41,6 @@ spec:
           - name: dockerfile-path
             value: docker/Dockerfile
           - name: image-tag
-            value: latest
+            value: 0.0.4
           - name: kaniko-image-url
             value: gcr.io/kaniko-project/executor:v1.9.1
