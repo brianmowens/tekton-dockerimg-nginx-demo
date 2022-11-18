@@ -32,8 +32,7 @@ spec:
       default: gcr.io/kaniko-project/executor:v1.9.1
       description: Path to the Kaniko image.
   workspaces:
-    - name: kaniko
-      workspace: docker-workspace
+    - name: docker-workspace
   tasks:
     - name: git-clone
       taskRef: 
