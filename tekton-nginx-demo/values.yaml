@@ -8,7 +8,7 @@ image:
   repository: brianowens/nginx-hello-world
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "0.0.2"
+  tag: "latest"
 
 imagePullSecrets: []
 nameOverride: ""
