@@ -53,6 +53,8 @@ spec:
       workspaces:
         - name: kaniko
           workspace: docker-workspace
+      runAfter:
+        - git-clone
     - name: kaniko-build
       params:
         - name: docker-registry
