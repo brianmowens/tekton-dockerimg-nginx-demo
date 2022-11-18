@@ -3,6 +3,12 @@ Demonstrate using Tekton to build and publish an Nginx docker container. Helm ch
 
 This repository, while public, mostly serves as notes for me to recreate my environments at a later date.
 
+A helpful guide for setting up Tekton triggers: 
+https://www.arthurkoziel.com/tutorial-tekton-triggers-with-github-integration/#requirements
+
+GitHub webhook payloads:
+https://docs.github.com/en/developers/webhooks-and-events/webhooks/webhook-events-and-payloads#webhook-payload-object-common-properties
+
 ## My Environment
 
 A single microk8s node running in Oracle Virtual Box on a Windows laptop. Virtual box VM is created by vagrant and configured via ansible. Microk8s is configured to have ingress setup as well as metallb. Metallb is configured to use an IP range overlapping my home network (192.168.1.x-192.168.1.x)
