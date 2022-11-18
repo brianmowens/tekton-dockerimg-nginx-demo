@@ -9,7 +9,7 @@ spec:
     - host: tektontrigger.example.com
       http:
         paths:
-          - path: /hooks
+          - path: /
             pathType: Exact
             backend:
               service:
