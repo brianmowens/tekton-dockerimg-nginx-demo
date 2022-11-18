@@ -28,7 +28,7 @@ spec:
     - image: $(params.kaniko-image-url)
       name: kaniko-build
       resources: {}
-      args: ["--dockerfile=Dockerfile",
+      args: ["--dockerfile=docker/Dockerfile",
             "--context=dir://$(workspaces.kaniko.path)",
             "--destination=$(params.docker-registry):$(params.image-tag)"]
       volumeMounts:
