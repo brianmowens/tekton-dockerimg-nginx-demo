@@ -2,7 +2,6 @@ apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
   name: nginx-build-demo
-  namespace: tekton-nginx-demo
 spec:
   params:
     - name: git-credential-secret-name
