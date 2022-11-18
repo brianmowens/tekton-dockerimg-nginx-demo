@@ -29,7 +29,7 @@ spec:
       name: kaniko-build
       resources: {}
       args: ["--dockerfile=Dockerfile",
-            "--context=dir://$(workspaces.kaniko.path)/docker",
+            "--context=dir://$(workspaces.kaniko.path)",
             "--destination=$(params.docker-registry):$(params.image-tag)"]
       volumeMounts:
         - name: docker-config
