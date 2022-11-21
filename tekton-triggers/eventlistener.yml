@@ -20,7 +20,10 @@ spec:
             name: "cel"
           params:
             - name: "filter"
-              value: "body.commits.modified in ['docker/', 'tekton-nginx-demo/']"
+              value: "body.commits.map(commits, commits.modified.map(modified))"
+            - overlays:
+              - key: "filter"
+                expression: body.commits.has['docker/']
       bindings:
         - ref: github-commit-binding
       template:
