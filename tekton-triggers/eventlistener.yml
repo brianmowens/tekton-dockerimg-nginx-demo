@@ -20,7 +20,7 @@ spec:
             name: "cel"
           params:
             - name: "filter"
-              value: "body.commits.startsWith(modified, 'docker/')"
+              value: "body.commits.modified.has(modified, 'docker/')"
       bindings:
         - ref: github-commit-binding
       template:
