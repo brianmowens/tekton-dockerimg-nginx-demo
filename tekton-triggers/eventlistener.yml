@@ -17,9 +17,9 @@ spec:
             - name: "eventTypes"
               value: ["push"]
         - ref:
-            name: "commits-modified-filter"
+            name: "cel"
           params:
-            - name: "filter"
+            - name: "commits-modified-filter"
               value: "body.commits.modified in ['docker/', 'tekton-nginx-demo/']"
       bindings:
         - ref: github-commit-binding
