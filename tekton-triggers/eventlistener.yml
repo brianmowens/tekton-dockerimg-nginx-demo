@@ -20,7 +20,7 @@ spec:
             name: "cel"
           params:
             - name: "filter"
-              value: "body.commits.map(commits, commits.modified.map(modified))"
+              value: "body.commits.map(commits, commits.modified)"
             - name: "overlays"
               value:
                 - key: "filter"
