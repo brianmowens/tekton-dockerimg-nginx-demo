@@ -22,7 +22,7 @@ spec:
             - name: "filter"
               value: >-
                 body.commits.all(commit, commit.modified.all(modified, modified.startsWith('docker/'))) ||
-                body.commits.all(commit, commit.modified.all(modified, modified.startsWith('docker/'))) &&
+                body.commits.all(commit, commit.modified.all(modified, modified.startsWith('docker/')))
       bindings:
         - ref: github-commit-binding
       template:
