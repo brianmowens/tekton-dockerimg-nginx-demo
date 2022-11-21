@@ -21,9 +21,10 @@ spec:
           params:
             - name: "filter"
               value: "body.commits.map(commits, commits.modified.map(modified))"
-            - overlays:
-              - key: "filter"
-                expression: body.commits.has['docker/']
+            - name: "overlays"
+              value:
+                - key: "filter"
+                  expression: body.commits.has['docker/']
       bindings:
         - ref: github-commit-binding
       template:
