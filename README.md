@@ -94,5 +94,4 @@ Run Ngrok, then use the supplied URL to configure the Webhook on your git reposi
 
 ```
 ngrok http --host-header=tektontrigger.example.com http://tektontrigger.example.com
-
 ```
