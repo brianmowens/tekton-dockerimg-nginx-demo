@@ -94,5 +94,9 @@ Run Ngrok, then use the supplied URL to configure the Webhook on your git reposi
 
 ```
 ngrok http --host-header=tektontrigger.example.com http://tektontrigger.example.com
-
 ```
+
+## Cel resources
+
+Links to various sources used for assistance in creating cel filters.
+- https://github.com/google/cel-spec/blob/master/doc/langdef.md#logical-operators
