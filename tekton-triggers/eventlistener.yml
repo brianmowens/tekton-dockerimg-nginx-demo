@@ -16,6 +16,11 @@ spec:
                 secretKey: secretToken
             - name: "eventTypes"
               value: ["push"]
+        - ref:
+            name: "commits-modified-filter"
+          params:
+            - name: "filter"
+              value: "body.commits.modified in ['docker/', 'tekton-nginx-demo/']"
       bindings:
         - ref: github-commit-binding
       template:
