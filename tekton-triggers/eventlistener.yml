@@ -19,7 +19,7 @@ spec:
         - ref:
             name: "cel"
           params:
-            - name: "commits-modified-filter"
+            - name: "filter"
               value: "body.commits.modified in ['docker/', 'tekton-nginx-demo/']"
       bindings:
         - ref: github-commit-binding
