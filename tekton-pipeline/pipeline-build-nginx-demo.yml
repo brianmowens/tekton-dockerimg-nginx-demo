@@ -14,6 +14,10 @@ spec:
       type: string
       default: main
       description: Git branch to checkout.
+    - name: git-revision
+      type: string
+      default: ""
+      description: Git repository commit hash.
     - name: docker-registry
       type: string
       description: Address of destination Docker image repository.
@@ -44,6 +48,8 @@ spec:
           value: $(params.git-url)
         - name: git-branch
           value: $(params.git-branch)
+        - name: git-revision
+          value: $(params.git-revision)
       workspaces:
         - name: kaniko
           workspace: docker-workspace

@@ -14,6 +14,9 @@ spec:
       type: string
       default: main
       description: Git branch to checkout.
+    - name: git-revision
+      type: string
+      default: ""
   workspaces:
     - name: kaniko
       description: |
@@ -28,24 +31,29 @@ spec:
               name: $(params.git-credential-secret-name)
               key: password
       script: |
-        GIT_URL=$(params.git-url)
         GIT_BRANCH=$(params.git-branch)
+        GIT_REVISION=$(params.git-revision)
+        GIT_URL=$(params.git-url)
 
-        if [[ "$GIT_BRANCH" == *"refs/heads/"* ]]; then
-          echo "Separating $GIT_BRANCH into just branch name."
-          IFS="/", read -r -a array <<< $GIT_BRANCH
-          GIT_BRANCH="${array[-1]}"
-          echo "New branch name is $GIT_BRANCH"
-        fi
-
+        # Clone the repository
         echo "Cloning repository: $GIT_URL"
         git clone $GIT_URL $(workspaces.kaniko.path)
+        
+        echo "Setting working directory: $(workspaces.kaniko.path)"
+        cd $(workspaces.kaniko.path)
 
-        if [[ $GIT_BRANCH != "main " ]]; then
-          echo "Checking out branch: $GIT_BRANCH"
-          cd $(workspaces.kaniko.path)
-          git checkout $GIT_BRANCH
-        fi
+        # If git revision is not empty, checkout the revision.
+        # Else if git revision is empty but branch is not, checkout branch.
+        # Else return non-zero exit code.
+        if [[ $GIT_REVISION != "" ]]; then
+          echo "Checking out git revision: $GIT_REVISION"
+          git checkout $GIT_REVISION
+        elif [[ $GIT_REVISION == "" && $GIT_BRANCH != "" ]];
+          echo "Checking out git branch: $GIT_BRANCH"
+          git checkout $GIT_BRANCH"
+        else
+          echo "Unable to determine revision or branch to checkout."
+          return -1       
 
         # Print directory output for logs
         ls -lah $(workspaces.kaniko.path)

@@ -37,6 +37,8 @@ spec:
             value: $(tt.params.gitrepositoryurl)
           - name: git-branch
             value: $(tt.params.gitbranch)
+          - name: git-revision
+            value: $(tt.params.gitrevision)
           - name: docker-registry
             value: brianowens/nginx-hello-world
           - name: docker-registry-secret-name
