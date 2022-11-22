@@ -23,12 +23,12 @@ spec:
         RESULTS_TAG=""
 
         if [[ $PARAMS_TAG != "" ]]; then
-          echo $PARAMS_TAG | tee $(results.image-tag.path)
+          echo -n $PARAMS_TAG | tee $(results.image-tag.path)
           echo "Using pre-provided image tag: $PARAMS_TAG"
         else
           echo "Generating image tag from git hash: $(git log -1 --pretty=%H)"
           RESULTS_TAG=$(git log -1 --pretty=%h)
-          echo $RESULTS_TAG | tee $(results.image-tag.path)
+          echo -n $RESULTS_TAG | tee $(results.image-tag.path)
           echo "Generated tag: $RESULTS_TAG"
         fi        
       workingDir: $(workspaces.kaniko.path)
