@@ -20,7 +20,7 @@ spec:
       env: []
       script: |
         PARAMS_TAG=$(params.image-tag)
-        RESULTS_TAG
+        RESULTS_TAG=""
 
         if [[ $PARAMS_TAG != "" ]]; then
           echo $PARAMS_TAG | tee $(results.image-tag.path)
