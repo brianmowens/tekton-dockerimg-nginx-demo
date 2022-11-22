@@ -48,7 +48,7 @@ spec:
         if [[ $GIT_REVISION != "" ]]; then
           echo "Checking out git revision: $GIT_REVISION"
           git checkout $GIT_REVISION
-        elif [[ $GIT_REVISION == "" && $GIT_BRANCH != "" ]];
+        elif [[ $GIT_REVISION == "" && $GIT_BRANCH != "" ]]; then
           echo "Checking out git branch: $GIT_BRANCH"
           git checkout $GIT_BRANCH
         else
