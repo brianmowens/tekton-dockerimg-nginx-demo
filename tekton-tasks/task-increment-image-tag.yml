@@ -20,11 +20,11 @@ spec:
       env: []
       script: |
         if [[ $(params.image-tag) != "" ]]; then
-          $(results.image-tag.path)=$(params.image-tag)
-          echo "Using pre-provided image tag: $(results.image-tag.path)"
+          echo $(params.image-tag) | tee $(results.image-tag.path)
+          echo "Using pre-provided image tag: $(cat results.image-tag.path)"
         else
           echo "Generating image tag from git hash $(git log -1 %H)"
-          $(results.image-tag.path)=$(git log -1 %h)
-          echo "Generated tag: $(results.image-tag.path)"
+          git log -1 %h | tee $(results.image-tag.path)
+          echo "Generated tag: $(cat results.image-tag.path)"
         fi        
       workingDir: $(workspaces.kaniko.path)
