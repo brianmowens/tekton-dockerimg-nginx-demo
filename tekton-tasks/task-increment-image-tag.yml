@@ -20,7 +20,7 @@ spec:
           $(results.image-tag)=$(params.image-tag)
           echo "Using pre-provided image tag: $(results.image-tag)"
         else
-          echo "Generating image tag from git hash $(params.git-sha)"
+          echo "Generating image tag from git hash $(git log -1 %H)"
           $(results.image-tag)=$(git log -1 %h)
           echo "Generated tag: $(results.image-tag)"
         fi
