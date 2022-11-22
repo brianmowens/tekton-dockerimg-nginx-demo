@@ -25,7 +25,7 @@ spec:
       description: Path to the Dockerfile in your workspace.
     - name: image-tag
       type: string
-      default: latest
+      default: ""
       description: Tag assigned to the generated Docker image.
     - name: kaniko-image-url
       type: string
@@ -47,14 +47,15 @@ spec:
       workspaces:
         - name: kaniko
           workspace: docker-workspace
-    - name: busybox-debug
-      taskRef: 
-        name: task-busybox-debug
+    - name: generate-img-tag
+      taskRef:
+        name: task-increment-image-tag
+      params:
+        - name: image-tag
+          value: $(params.image-tag)
       workspaces:
         - name: kaniko
           workspace: docker-workspace
-      runAfter:
-        - git-clone
     - name: kaniko-build
       params:
         - name: docker-registry
@@ -64,7 +65,7 @@ spec:
         - name: dockerfile-path
           value: $(params.dockerfile-path)
         - name: image-tag
-          value: $(params.image-tag)
+          value: $(tasks.generate-img-tag.results.image-tag)
         - name: kaniko-image-url
           value: $(params.kaniko-image-url)
       taskRef: 

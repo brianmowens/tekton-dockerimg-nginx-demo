@@ -1,0 +1,27 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: task-increment-image-tag
+spec:
+  params:
+    - name: image-tag
+      description: If provided, will override result of this task.
+      default: ""
+      type: string
+  results:
+    - name: image-tag
+      description: Generated image tag.
+  steps:
+    - image: busybox
+      name: create-image-tag
+      env: []
+      script: |
+        if [[ $(params.image-tag) != "" ]]; then
+          $(results.image-tag)=$(params.image-tag)
+          echo "Using pre-provided image tag: $(results.image-tag)"
+        else
+          echo "Generating image tag from git hash $(params.git-sha)"
+          $(results.image-tag)=$(git log -1 %h)
+          echo "Generated tag: $(results.image-tag)"
+        fi
+      workingDir: $(workspaces.kaniko.path)
