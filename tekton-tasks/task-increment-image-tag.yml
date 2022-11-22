@@ -23,8 +23,8 @@ spec:
           echo $(params.image-tag) | tee $(results.image-tag.path)
           echo "Using pre-provided image tag: $(cat results.image-tag.path)"
         else
-          echo "Generating image tag from git hash $(git log -1 %H)"
-          git log -1 %h | tee $(results.image-tag.path)
+          echo "Generating image tag from git hash $(git log -1 --pretty=%H)"
+          git log -1 --pretty=%h | tee $(results.image-tag.path)
           echo "Generated tag: $(cat results.image-tag.path)"
         fi        
       workingDir: $(workspaces.kaniko.path)
