@@ -31,6 +31,14 @@ spec:
         GIT_URL=$(params.git-url)
         GIT_BRANCH=$(params.git-branch)
 
+        if [[ "$GIT_BRANCH" == *"refs/heads/"* ]]; then
+          echo "Separating $GIT_BRANCH into just branch name."
+          IFS="/", read -r -a array <<< $GIT_BRANCH
+          GIT_BRANCH="${array[-1]}"
+          echo "New branch name is $GIT_BRANCH"
+        fi
+
+
         echo "Cloning repository: $GIT_URL"
         git clone $GIT_URL $(workspaces.kaniko.path)
 

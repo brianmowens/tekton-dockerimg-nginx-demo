@@ -8,3 +8,5 @@ spec:
       value: $(body.repository.clone_url)
     - name: gitrevision
       value: $(body.after)
+    - name: gitbranch
+      value: $(body.refs)

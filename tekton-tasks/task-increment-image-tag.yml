@@ -11,6 +11,9 @@ spec:
   results:
     - name: image-tag
       description: Generated image tag.
+  workspaces:
+    - name: kaniko
+      description: Kaniko working folder
   steps:
     - image: busybox
       name: create-image-tag
