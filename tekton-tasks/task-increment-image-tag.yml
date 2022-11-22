@@ -15,16 +15,16 @@ spec:
     - name: kaniko
       description: Kaniko working folder
   steps:
-    - image: alpine
+    - image: alpine/git
       name: create-image-tag
       env: []
       script: |
         if [[ $(params.image-tag) != "" ]]; then
-          $(results.image-tag)=$(params.image-tag)
-          echo "Using pre-provided image tag: $(results.image-tag)"
+          $(results.image-tag.path)=$(params.image-tag)
+          echo "Using pre-provided image tag: $(results.image-tag.path)"
         else
           echo "Generating image tag from git hash $(git log -1 %H)"
-          $(results.image-tag)=$(git log -1 %h)
-          echo "Generated tag: $(results.image-tag)"
+          $(results.image-tag.path)=$(git log -1 %h)
+          echo "Generated tag: $(results.image-tag.path)"
         fi        
       workingDir: $(workspaces.kaniko.path)
