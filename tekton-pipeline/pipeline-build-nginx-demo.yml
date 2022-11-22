@@ -56,6 +56,8 @@ spec:
       workspaces:
         - name: kaniko
           workspace: docker-workspace
+      runAfter:
+        - git-clone
     - name: kaniko-build
       params:
         - name: docker-registry
@@ -72,6 +74,7 @@ spec:
         name: task-kaniko-build
       runAfter: 
         - git-clone
+        - generate-img-tag
       workspaces:
         - name: kaniko
           workspace: docker-workspace
