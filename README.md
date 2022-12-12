@@ -48,7 +48,7 @@ kubectl create secret docker-registry DOCKER-REGISTRY --docker-username=myuser -
 Tasks
 ```
 kubectl apply -f tekton-tasks/task-git-clone.yml -n tekton-demo
-kubectl apply -f tekton-tasks/task-busybox-debug.yml -n tekton-demo
+kubectl apply -f tekton-tasks/task-increment-image-tag.yml -n tekton-demo
 kubectl apply -f tekton-tasks/task-kaniko-build.yml -n tekton-demo
 ```
 Pipeline
